@@ -31,3 +31,4 @@ yarn create-next-app -e https://github.com/theabhayprajapati/Next.js-TailwindCSS
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
 # Next.js-TailwindCSS-MongoDB-TS
+# Next.js-PWA-TailwindCSS
