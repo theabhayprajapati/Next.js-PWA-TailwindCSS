@@ -2,8 +2,11 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import clientPromise from '../lib/mongodb'
 
+// todo: uncomment below code to user MongoDB
+// import clientPromise from '../lib/mongodb'
+
+// todo: PWA is been disabled to development mode, to test it,  code  NODE_ENV in .env.local
 
 interface GSSRProps {
   isConnected: boolean
@@ -11,23 +14,22 @@ interface GSSRProps {
 
 const Home: NextPage<{ isConnected: boolean }> = ({ isConnected }) => {
   const router = useRouter()
-  const code = "npx create-next-app -e https://github.com/theabhayprajapati/Next.js-TailwindCSS-MongoDB-TS <appname> "
-  function copyText(entryText: string) {
-    navigator.clipboard.writeText(entryText);
-  }
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
-        <title>Create Next App</title>
+        <title>Create Next PWA App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
+        <h1 className="text-5xl font-bold">
           Welcome to{' '}
           <a className="text-blue-600" href="https://nextjs.org">
-            Next.js! {
-              isConnected ? 'with MongoDB' : 'Not Connected'
+            Next.js PWA! {
+              isConnected ? 'with MongoDB' : <span className='text-red-500'>
+                {'Not Connected'}
+              </span>
             }
           </a>
         </h1>
@@ -86,10 +88,10 @@ const Home: NextPage<{ isConnected: boolean }> = ({ isConnected }) => {
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
           </a>
-          <code onClick={() => copyText(code)} className="mt-6 w-full rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600 cursor-pointer">
+          {/* <code onClick={() => copyText(code)} className="mt-6 w-full rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600 cursor-pointer">
             <span className='text-green-500'>
               $</span> {code}
-          </code>
+          </code> */}
 
         </div>
       </main>
@@ -114,21 +116,20 @@ export default Home
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
+  // todo: PWA is been disabled to development mode.
+  // todo: To use mongodb import clientPromise from '../lib/mongodb' & uncomment below code.
+  // set up mongodb
+  // const client = await clientPromise
+  // const db = client.db('mydb')
+  // const collection = db.collection('mycollection')
+  // const data = await collection.find({}).toArray()
+  // console.log(data)
+  // return { props: { isConnected: true } }
 
-  try {
-    //? client.db() will be the default database passed in the MONGODB_URI
-    //? You can change the database by calling the client.db() function and specifying a database like:
-    //? const db = client.db("myDatabase");
-    //? Then you can execute queries against your database like so:
-    //? db.find({}) or any of the MongoDB Node Driver commands
-    await clientPromise
-    return {
-      props: { isConnected: true },
-    }
-  } catch (e) {
-    console.error(e)
+  {
     return {
       props: { isConnected: false },
+
     }
   }
 }
